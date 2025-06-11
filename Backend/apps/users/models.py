@@ -23,6 +23,10 @@ class Role(models.TextChoices):
     MEMBER = 'MEMBER', 'Member'
     HEAD_PASTOR = 'HEAD_PASTOR', 'Head Pastor'
 
+def get_current_date():
+    """Return current date (without time) for default values"""
+    return timezone.now().date()
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         """
@@ -82,7 +86,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     role = models.CharField(max_length=20, choices=Role.choices, default=Role.MEMBER)
     member_id = models.CharField(max_length=20, unique=True, blank=True)
     ministry = models.CharField(max_length=10, choices=Ministry.choices, blank=True, null=True)
-    membership_start_date = models.DateField(default=timezone.now)
+    membership_start_date = models.DateField(default=get_current_date)
     baptized = models.BooleanField(default=False)
     
     # Personal Information
