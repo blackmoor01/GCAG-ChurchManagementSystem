@@ -6,17 +6,23 @@ from .models import (
 
 @admin.register(MemberProfile)
 class MemberProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'membership_status', 'marital_status', 'gender', 'city', 'created_at']
-    list_filter = ['membership_status', 'marital_status', 'gender', 'created_at']
+    list_display = ['user', 'membership_status', 'marital_status', 'get_gender', 'city', 'created_at']
+    list_filter = ['membership_status', 'marital_status', 'user__gender', 'created_at']
     search_fields = ['user__first_name', 'user__last_name', 'user__email', 'phone_number']
     readonly_fields = ['created_at', 'updated_at']
+
+
+    def get_gender(self, obj):
+        return obj.user.get_gender_display()
+    get_gender.short_description = 'Gender'
+    get_gender.admin_order_field = 'user__gender'
     
     fieldsets = (
         ('User Information', {
             'fields': ('user',)
         }),
         ('Personal Details', {
-            'fields': ('gender', 'date_of_birth', 'marital_status', 'occupation', 'employer', 'education')
+            'fields': ('get_gender', 'date_of_birth', 'marital_status', 'occupation', 'employer', 'education')
         }),
         ('Contact Information', {
             'fields': ('phone_number', 'alternative_phone', 'address', 'city', 'state', 'postal_code', 'country')

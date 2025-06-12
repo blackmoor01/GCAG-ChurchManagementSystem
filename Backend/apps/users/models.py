@@ -6,22 +6,54 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 from django.utils import timezone
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 class Ministry(models.TextChoices):
+    # Consolidated ministry choices used across the application
+    PASTORAL = 'PASTORAL', 'Pastoral Care'
+    WORSHIP = 'WORSHIP', 'Worship & Music'
+    YOUTH = 'YOUTH', 'Youth Ministry'
+    CHILDREN = 'CHILDREN', 'Children Ministry'
+    EVANGELISM = 'EVANGELISM', 'Evangelism & Outreach'
+    EDUCATION = 'EDUCATION', 'Christian Education'
+    FELLOWSHIP = 'FELLOWSHIP', 'Fellowship & Community'
+    MISSIONS = 'MISSIONS', 'Missions & Service'
+    ADMINISTRATION = 'ADMIN', 'Administration'
+    MEDIA = 'MEDIA', 'Media & Technology'
     CHOIR = 'CHOIR', 'Choir'
     USHERING = 'USHER', 'Ushering'
     FINANCE = 'FIN', 'Finance'
     PRAYER = 'PRAY', 'Prayer'
-    YOUTH = 'YOUTH', 'Youth'
     WOMEN = 'WOMEN', 'Women'
     MEN = 'MEN', 'Men'
-    CHILDREN = 'CHILD', 'Children'
     YOUNG_SINGLES = 'YS', 'Young Singles'
 
 class Role(models.TextChoices):
     ADMIN = 'ADMIN', 'Admin'
     MEMBER = 'MEMBER', 'Member'
     HEAD_PASTOR = 'HEAD_PASTOR', 'Head Pastor'
+
+class Gender(models.TextChoices):
+    # Standardized gender choices
+    MALE = 'MALE', 'Male'
+    FEMALE = 'FEMALE', 'Female'
+    OTHER = 'OTHER', 'Other'
+
+class MaritalStatus(models.TextChoices):
+    # Standardized marital status choices
+    SINGLE = 'SINGLE', 'Single'
+    MARRIED = 'MARRIED', 'Married'
+    DIVORCED = 'DIVORCED', 'Divorced'
+    WIDOWED = 'WIDOWED', 'Widowed'
+    SEPARATED = 'SEPARATED', 'Separated'
+
+class MembershipStatus(models.TextChoices):
+    # Standardized membership status choices
+    ACTIVE = 'ACTIVE', 'Active'
+    INACTIVE = 'INACTIVE', 'Inactive'
+    TRANSFERRED = 'TRANSFERRED', 'Transferred'
+    DECEASED = 'DECEASED', 'Deceased'
+    SUSPENDED = 'SUSPENDED', 'Suspended'
 
 def get_current_date():
     """Return current date (without time) for default values"""
@@ -68,6 +100,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
+    
+    # Phone number with standardized regex
     phone_regex = RegexValidator(
         regex=r'^\+?1?\d{9,15}$',
         message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."
@@ -85,14 +119,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     # Role and Membership Information
     role = models.CharField(max_length=20, choices=Role.choices, default=Role.MEMBER)
     member_id = models.CharField(max_length=20, unique=True, blank=True)
-    ministry = models.CharField(max_length=10, choices=Ministry.choices, blank=True, null=True)
+    primary_ministry = models.CharField(max_length=20, choices=Ministry.choices, blank=True, null=True)
     membership_start_date = models.DateField(default=get_current_date)
     baptized = models.BooleanField(default=False)
     
-    # Personal Information
+    # Basic Personal Information (detailed info moved to profile)
     date_of_birth = models.DateField(null=True, blank=True)
-    gender = models.CharField(max_length=10, choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Other')], blank=True)
-    address = models.TextField(blank=True)
+    gender = models.CharField(max_length=10, choices=Gender.choices, blank=True)
     
     # Tracking Information
     login_ip_address = models.GenericIPAddressField(null=True, blank=True)
@@ -115,7 +148,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def generate_member_id(self):
         """Generate member ID in the format GCAG-25-US-8X4D"""
         year_code = str(timezone.now().year)[-2:]
-        ministry_code = self.ministry if self.ministry else 'GEN'
+        ministry_code = self.primary_ministry if self.primary_ministry else 'GEN'
         random_part = ''.join(random.choices(string.ascii_uppercase + string.digits, k=4))
         return f"GCAG-{year_code}-{ministry_code}-{random_part}"
 
@@ -129,3 +162,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         return self.first_name
+
+    @property
+    def age(self):
+        """Calculate age from date of birth"""
+        if self.date_of_birth:
+            from datetime import date
+            today = date.today()
+            return today.year - self.date_of_birth.year - ((today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
+        return None

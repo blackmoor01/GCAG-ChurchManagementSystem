@@ -1,29 +1,10 @@
-# apps/groups/models.py
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
+from apps.users.models import Ministry
 
 User = get_user_model()
-
-class GroupMinistry(models.TextChoices):
-    PASTORAL = 'PASTORAL', 'Pastoral Care'
-    WORSHIP = 'WORSHIP', 'Worship & Music'
-    YOUTH = 'YOUTH', 'Youth Ministry'
-    CHILDREN = 'CHILDREN', 'Children Ministry'
-    EVANGELISM = 'EVANGELISM', 'Evangelism & Outreach'
-    EDUCATION = 'EDUCATION', 'Christian Education'
-    FELLOWSHIP = 'FELLOWSHIP', 'Fellowship & Community'
-    MISSIONS = 'MISSIONS', 'Missions & Service'
-    ADMINISTRATION = 'ADMIN', 'Administration'
-    MEDIA = 'MEDIA', 'Media & Technology'
-    CHOIR = 'CHOIR', 'Choir'
-    USHERING = 'USHER', 'Ushering'
-    FINANCE = 'FIN', 'Finance'
-    PRAYER = 'PRAY', 'Prayer'
-    WOMEN = 'WOMEN', 'Women'
-    MEN = 'MEN', 'Men'
-    YOUNG_SINGLES = 'YS', 'Young Singles'
 
 class GroupType(models.TextChoices):
     SMALL_GROUP = 'SMALL_GROUP', 'Small Group'
@@ -37,7 +18,7 @@ class GroupType(models.TextChoices):
 class Group(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
-    ministry_type = models.CharField(max_length=20, choices=GroupMinistry.choices)
+    ministry_type = models.CharField(max_length=20, choices=Ministry.choices)
     group_type = models.CharField(max_length=20, choices=GroupType.choices, default=GroupType.SMALL_GROUP)
     
     # Leadership

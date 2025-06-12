@@ -1,43 +1,31 @@
 from django.db import models
 from django.core.validators import RegexValidator
-from apps.users.models import User
+from django.contrib.auth import get_user_model
+from apps.users.models import Gender, MaritalStatus, MembershipStatus
+
+User = get_user_model()
 
 class MemberProfile(models.Model):
-    MARITAL_STATUS_CHOICES = [
-        ('SINGLE', 'Single'),
-        ('MARRIED', 'Married'), 
-        ('DIVORCED', 'Divorced'),
-        ('WIDOWED', 'Widowed'),
-        ('SEPARATED', 'Separated'),
-    ]
-    
-    MEMBERSHIP_STATUS_CHOICES = [
-        ('ACTIVE', 'Active'),
-        ('INACTIVE', 'Inactive'),
-        ('TRANSFERRED', 'Transferred'),
-        ('DECEASED', 'Deceased'),
-        ('SUSPENDED', 'Suspended'),
-    ]
-    
-    GENDER_CHOICES = [
-        ('MALE', 'Male'),
-        ('FEMALE', 'Female'),
-        ('OTHER', 'Other'),
+    CONTACT_METHOD_CHOICES = [
+        ('EMAIL', 'Email'),
+        ('PHONE', 'Phone'),
+        ('SMS', 'SMS'),
+        ('WHATSAPP', 'WhatsApp'),
     ]
     
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='member_profile')
     
-    # Personal Details
-    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, blank=True)
-    date_of_birth = models.DateField(null=True, blank=True)
-    marital_status = models.CharField(max_length=20, choices=MARITAL_STATUS_CHOICES, default='SINGLE')
+    # Personal Details (using standardized choices from User model)
+    marital_status = models.CharField(max_length=20, choices=MaritalStatus.choices, default=MaritalStatus.SINGLE)
     occupation = models.CharField(max_length=100, blank=True)
     employer = models.CharField(max_length=100, blank=True)
     education = models.CharField(max_length=100, blank=True)
     
     # Contact Information
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
+    phone_regex = RegexValidator(
+        regex=r'^\+?1?\d{9,15}$', 
+        message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."
+    )
     alternative_phone = models.CharField(validators=[phone_regex], max_length=17, blank=True)
     address = models.TextField(blank=True)
     city = models.CharField(max_length=50, blank=True)
@@ -55,23 +43,16 @@ class MemberProfile(models.Model):
     
     # Family Connections
     spouse = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, related_name='spouse_of')
-    children = models.ManyToManyField(User, blank=True, related_name='parents')
     emergency_contact = models.JSONField(default=dict)  # {name, phone, relationship, address}
     
     # Membership Details
-    membership_status = models.CharField(max_length=20, choices=MEMBERSHIP_STATUS_CHOICES, default='ACTIVE')
-    membership_date = models.DateField(auto_now_add=True)
+    membership_status = models.CharField(max_length=20, choices=MembershipStatus.choices, default=MembershipStatus.ACTIVE)
     transfer_date = models.DateField(null=True, blank=True)
     previous_church = models.CharField(max_length=200, blank=True)
     membership_notes = models.TextField(blank=True)
     
     # Preferences
-    preferred_contact_method = models.CharField(max_length=20, choices=[
-        ('EMAIL', 'Email'),
-        ('PHONE', 'Phone'),
-        ('SMS', 'SMS'),
-        ('WHATSAPP', 'WhatsApp'),
-    ], default='EMAIL')
+    preferred_contact_method = models.CharField(max_length=20, choices=CONTACT_METHOD_CHOICES, default='EMAIL')
     newsletter_subscription = models.BooleanField(default=True)
     event_notifications = models.BooleanField(default=True)
     
@@ -92,14 +73,6 @@ class MemberProfile(models.Model):
     
     def __str__(self):
         return f"{self.user.get_full_name()}'s Profile"
-    
-    @property
-    def age(self):
-        if self.date_of_birth:
-            from datetime import date
-            today = date.today()
-            return today.year - self.date_of_birth.year - ((today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
-        return None
     
     @property
     def full_address(self):
