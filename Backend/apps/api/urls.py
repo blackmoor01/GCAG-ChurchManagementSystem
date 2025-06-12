@@ -6,5 +6,8 @@ urlpatterns = [
 
     # Members API endpoints
     path('members/', include('apps.members.urls')),
+
+    # Groups API endpoints
+    path('groups/', include('apps.groups.urls')),
     
 ]
