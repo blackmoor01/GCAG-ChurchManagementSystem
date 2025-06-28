@@ -8,7 +8,10 @@ export default function Topbar({ onToggleSidebar }: Props) {
   return (
     <header className="flex items-center justify-between px-6 py-4 shadow-sm bg-white sticky top-0 z-10">
       <div className="flex items-center gap-4">
-        <button onClick={onToggleSidebar} className="text-purple-700">
+        <button
+          onClick={onToggleSidebar}
+          className="text-purple-700 cursor-pointer"
+        >
           <AlignLeft className="w-6 h-6" />
         </button>
         <h1 className="text-xl font-bold">Dashboard</h1>

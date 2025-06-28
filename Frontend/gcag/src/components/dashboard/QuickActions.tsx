@@ -1,4 +1,3 @@
-// src/components/dashboard/QuickActions.tsx
 import type { QuickAction } from "../../types";
 
 type Props = {

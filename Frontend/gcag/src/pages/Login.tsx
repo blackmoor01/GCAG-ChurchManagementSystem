@@ -1,11 +1,8 @@
-// src/pages/LoginPage.tsx
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Needed for navigation
 import RoleSelector from "../components/auth/RoleSelector";
 import LoginForm from "../components/auth/LoginForm";
 
-// Images
 import aglogo from "../assets/images/aglogo.png";
 import logo from "../assets/images/logo.png";
 

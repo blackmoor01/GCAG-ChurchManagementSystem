@@ -1,4 +1,3 @@
-// src/components/dashboard/StatsCard.tsx
 import type { Stat } from "../../types";
 
 type Props = {

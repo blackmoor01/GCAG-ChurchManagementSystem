@@ -9,8 +9,8 @@ import { stats, quickActions, recentMembers } from "../data/MockData";
 export default function DashboardPage() {
   return (
     <Layout>
-      <h2 className="text-xl font-bold mb-4">Welcome, Rev Ebenezer</h2>
-      <p>Here is what`s happening at your church</p>
+      <h2 className="text-xl font-bold ">Welcome, Rev Ebenezer</h2>
+      <p className="mb-3 text-sm">Here is what's happening at your church</p>
 
       {/* Stat Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">

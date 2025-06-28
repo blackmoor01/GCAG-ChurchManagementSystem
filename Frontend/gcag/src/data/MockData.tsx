@@ -64,15 +64,33 @@ export const quickActions: QuickAction[] = [
 //  Recent members list
 export const recentMembers: Member[] = [
   {
-    name: "Gideon Darso",
+    name: "Gideon Danso",
     joinDate: "May 12, 2019",
     status: "ACTIVE",
-    groups: ["Music", "Youth", "Pain Raiser"],
+    groups: ["Music", "Youth", "Path Finder"],
   },
   {
-    name: "Gideon Darso",
-    joinDate: "May 12, 2019",
+    name: "Emmanuel Quayson",
+    joinDate: "May 12, 2025",
+    status: "INACTIVE",
+    groups: ["Media", "Youth", "Path Finder"],
+  },
+  {
+    name: "Ella Gyan",
+    joinDate: "June 12, 2024",
+    status: "INACTIVE",
+    groups: ["Tamborine", "Youth", "Young Singles"],
+  },
+  {
+    name: "Emmanuel Brannor",
+    joinDate: "Jan 12, 2025",
     status: "ACTIVE",
-    groups: ["Music", "Youth", "Pain Raiser"],
+    groups: ["Church Board", "Men Ministry"],
+  },
+  {
+    name: "Ofori Amponsah",
+    joinDate: "Oct 12, 2023",
+    status: "VISITOR",
+    groups: ["Media", "Youth", "Pain Raiser"],
   },
 ];
