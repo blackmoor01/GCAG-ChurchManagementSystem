@@ -39,14 +39,14 @@ export default function LoginForm() {
 
       <div className="flex items-center space-x-2">
         <input type="checkbox" id="2fa" />
-        <label htmlFor="2fa" className="text-sm">
+        <label htmlFor="2fa" className="text-sm cursor-pointer">
           Set up Two-Factor Authentication
         </label>
       </div>
 
       <div className="flex items-center space-x-2">
         <input type="checkbox" id="remember" />
-        <label htmlFor="remember" className="text-sm">
+        <label htmlFor="remember" className="text-sm cursor-pointer">
           Remember me
         </label>
       </div>
@@ -63,7 +63,7 @@ export default function LoginForm() {
 
       <Button
         type="submit"
-        className="w-full bg-gradient-to-r from-purple-400 to-purple-700 cursor-pointer hover:bg-purple-800 text-white"
+        className="w-full bg-gradient-to-r py-3 from-purple-700 to-purple-900 cursor-pointer hover:bg-purple-800 text-white"
       >
         Continue →
       </Button>
