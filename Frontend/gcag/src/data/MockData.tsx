@@ -9,7 +9,7 @@ import {
   UsersRound,
 } from "lucide-react";
 
-//  Dashboard statistics (top cards)
+// Dashboard statistics (top cards)
 export const stats: Stat[] = [
   {
     title: "Total Members",
@@ -61,36 +61,61 @@ export const quickActions: QuickAction[] = [
   },
 ];
 
-//  Recent members list
+// Recent members list (expanded shape)
 export const recentMembers: Member[] = [
   {
     name: "Gideon Danso",
     joinDate: "May 12, 2019",
-    status: "ACTIVE",
-    groups: ["Music", "Youth", "Path Finder"],
+    email: "gideon.danso@example.com",
+    phone: "+233 20 123 4567",
+    titheStatus: "Paid",
+    welfareEligible: true,
+    attendanceStatus: "Active",
+    ministry: "Music Ministry",
+    lastTitheDate: "06/15/2025",
   },
   {
     name: "Emmanuel Quayson",
     joinDate: "May 12, 2025",
-    status: "INACTIVE",
-    groups: ["Media", "Youth", "Path Finder"],
+    email: "emmanuel.quayson@example.com",
+    phone: "+233 24 234 5678",
+    titheStatus: "Pending",
+    welfareEligible: false,
+    attendanceStatus: "Active",
+    ministry: "Media Team",
+    lastTitheDate: "05/20/2025",
   },
   {
     name: "Ella Gyan",
     joinDate: "June 12, 2024",
-    status: "INACTIVE",
-    groups: ["Tamborine", "Youth", "Young Singles"],
+    email: "ella.gyan@example.com",
+    phone: "+233 24 345 6789",
+    titheStatus: "Overdue",
+    welfareEligible: false,
+    attendanceStatus: "Inactive",
+    ministry: "Young Singles",
+    lastTitheDate: "03/01/2025",
   },
   {
     name: "Emmanuel Brannor",
     joinDate: "Jan 12, 2025",
-    status: "ACTIVE",
-    groups: ["Church Board", "Men Ministry"],
+    email: "emmanuel.brannor@example.com",
+    phone: "+233 24 456 7890",
+    titheStatus: "Paid",
+    welfareEligible: true,
+    attendanceStatus: "Active",
+    ministry: "Men’s Ministry",
+    lastTitheDate: "06/01/2025",
   },
   {
     name: "Ofori Amponsah",
     joinDate: "Oct 12, 2023",
-    status: "VISITOR",
-    groups: ["Media", "Youth", "Pain Raiser"],
+    email: "ofori.amponsah@example.com",
+    phone: "+233 24 567 8901",
+    titheStatus: "Pending",
+    welfareEligible: true,
+    attendanceStatus: "Active",
+    ministry: "Pathfinder Club",
+    lastTitheDate: "05/30/2025",
   },
 ];

@@ -13,9 +13,15 @@ export interface QuickAction {
   icon: JSX.Element;
 }
 
+// Expanded Member type to match the new table columns
 export interface Member {
   name: string;
   joinDate: string;
-  status: string;
-  groups: string[];
+  email: string;
+  phone: string;
+  titheStatus: "Paid" | "Pending" | "Overdue";
+  welfareEligible: boolean;
+  attendanceStatus: "Active" | "Inactive" | "Pending";
+  ministry: string;
+  lastTitheDate: string;
 }
