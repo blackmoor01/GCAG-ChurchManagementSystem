@@ -2,7 +2,7 @@ import { AlertTriangle, Calendar } from "lucide-react";
 
 export default function SystemAlerts() {
   return (
-    <div className="bg-white shadow-sm rounded-lg p-4">
+    <div className="bg-white shadow-sm rounded-lg p-4 transform transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
       <h3 className="text-lg font-bold text-gray-900 mb-1">System Alerts</h3>
       <p className="text-sm text-gray-500 mb-4">
         Important notifications and reminders

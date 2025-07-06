@@ -16,7 +16,7 @@ export default function DashboardPage() {
     <>
       {/* Hero Banner */}
       <DashboardHero
-        name="Rev Ebenezer"
+        name="Admin"
         onAddMember={() => navigate("/members/add")}
         onScheduleEvent={() => navigate("/events")}
       />

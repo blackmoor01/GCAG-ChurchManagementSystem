@@ -5,4 +5,15 @@ export default {
     extend: {},
   },
   plugins: [],
+  colors: {
+    purple: {
+      DEFAULT: "#5D0676",
+      light: "#F3E8FB",
+      dark: "#45045A",
+    },
+    green: {
+      DEFAULT: "#22C55E", // Tailwind's emerald-500
+    },
+    black: "#000000",
+  },
 };

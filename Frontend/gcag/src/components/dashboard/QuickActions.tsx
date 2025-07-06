@@ -6,7 +6,7 @@ type Props = {
 
 export default function QuickActions({ actions }: Props) {
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-4 transform transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
       {actions.map((action, idx) => (
         <div key={idx} className="bg-white shadow-sm rounded-lg p-4">
           <div className="text-purple-700 mb-2">{action.icon}</div>

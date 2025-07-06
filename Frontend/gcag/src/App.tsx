@@ -13,6 +13,7 @@ import MembersPage from "./pages/members/MembersPage";
 import AllMembers from "./pages/members/AllMembers";
 import AddMember from "./pages/members/AddMember";
 import MemberProfile from "./pages/members/MemberProfile";
+import MinistryPage from "./pages/ministries/MinistryPage";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="add" element={<AddMember />} />
           <Route path=":id" element={<MemberProfile />} />
         </Route>
+        <Route path="/ministries" element={<MinistryPage />} />
 
         {/* Redirect unknown protected routes to dashboard */}
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
