@@ -1,12 +1,12 @@
 import type { Stat, QuickAction, Member } from "../types";
 import {
   Users,
-  DollarSign,
   Heart,
-  Activity,
   Calendar,
   Settings,
   UsersRound,
+  Church,
+  CreditCard,
 } from "lucide-react";
 
 // Dashboard statistics (top cards)
@@ -21,7 +21,7 @@ export const stats: Stat[] = [
     title: "Finance",
     value: "$24,800",
     change: "+5.3% finance raised",
-    icon: <DollarSign />,
+    icon: <CreditCard />,
   },
   {
     title: "Welfare",
@@ -33,7 +33,7 @@ export const stats: Stat[] = [
     title: "Active Ministries",
     value: "12",
     change: "2 new added this week",
-    icon: <Activity />,
+    icon: <Church />,
   },
 ];
 
@@ -47,7 +47,7 @@ export const quickActions: QuickAction[] = [
   {
     title: "Ministries",
     description: "Manage and monitor church ministries",
-    icon: <Activity />,
+    icon: <Church />,
   },
   {
     title: "Events",
@@ -115,6 +115,17 @@ export const recentMembers: Member[] = [
     titheStatus: "Pending",
     welfareEligible: true,
     attendanceStatus: "Active",
+    ministry: "Pathfinder Club",
+    lastTitheDate: "05/30/2025",
+  },
+  {
+    name: "Edward Kojo Mensah",
+    joinDate: "Oct 12, 2022",
+    email: "edward.kojo@example.com",
+    phone: "+233 24 567 8901",
+    titheStatus: "Pending",
+    welfareEligible: false,
+    attendanceStatus: "Inactive",
     ministry: "Pathfinder Club",
     lastTitheDate: "05/30/2025",
   },

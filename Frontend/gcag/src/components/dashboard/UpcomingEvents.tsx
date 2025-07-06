@@ -1,4 +1,3 @@
-// src/components/dashboard/UpcomingEvents.tsx
 import { Calendar as CalendarIcon, Repeat, Star } from "lucide-react";
 
 type WeeklyEvent = {
@@ -28,7 +27,7 @@ const specialEvents: SpecialEvent[] = [
 
 export default function UpcomingEvents() {
   return (
-    <div className="bg-white shadow-sm rounded-lg p-4">
+    <div className="bg-white shadow-sm rounded-lg p-4 max-h-[400px] overflow-y-auto">
       {/* Weekly Recurring */}
       <h3 className="text-lg font-semibold mb-3">Weekly Events</h3>
       <div className="space-y-2 mb-6">

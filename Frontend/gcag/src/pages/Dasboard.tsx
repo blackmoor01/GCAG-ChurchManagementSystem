@@ -1,4 +1,6 @@
 // src/pages/DashboardPage.tsx
+import { useNavigate } from "react-router-dom";
+import DashboardHero from "../components/dashboard/DashboardHero";
 import StatsCard from "../components/dashboard/StatsCard";
 import QuickActions from "../components/dashboard/QuickActions";
 import UpcomingEvents from "../components/dashboard/UpcomingEvents";
@@ -8,15 +10,16 @@ import SystemAlert from "../components/dashboard/SystemAlert";
 import { stats, quickActions, recentMembers } from "../data/MockData";
 
 export default function DashboardPage() {
+  const navigate = useNavigate();
+
   return (
     <>
-      {/* Header */}
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold mb-1">Welcome, Rev Ebenezer</h2>
-        <p className="text-sm text-gray-600">
-          Here’s what’s happening at your church
-        </p>
-      </div>
+      {/* Hero Banner */}
+      <DashboardHero
+        name="Rev Ebenezer"
+        onAddMember={() => navigate("/members/add")}
+        onScheduleEvent={() => navigate("/events")}
+      />
 
       {/* Stat Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">

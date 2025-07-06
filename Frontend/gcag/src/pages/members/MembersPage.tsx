@@ -1,13 +1,15 @@
-// src/pages/members/MembersPage.tsx
 import { NavLink, Outlet } from "react-router-dom";
+import { useState } from "react";
 
 const tabs = [
   { label: "All Members", to: "" }, // index route
   { label: "Add Member", to: "add" },
-  { label: "Member Profile", to: "1" }, // example id=1; in real use, link from table
+  { label: "Member Profile", to: "1" }, // placeholder; real IDs come from table
 ];
 
 export default function MembersPage() {
+  const [searchTerm, setSearchTerm] = useState("");
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -16,6 +18,17 @@ export default function MembersPage() {
         <p className="text-sm text-gray-600">
           Manage church members and their information
         </p>
+      </div>
+
+      {/* Search Bar */}
+      <div className="w-full max-w-md">
+        <input
+          type="text"
+          placeholder="Search members..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full border rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#5D0676]"
+        />
       </div>
 
       {/* Tabs */}
@@ -40,9 +53,9 @@ export default function MembersPage() {
         </ul>
       </nav>
 
-      {/* Sub‑page content */}
+      {/* Sub‑page content, passing searchTerm down */}
       <div className="pt-4">
-        <Outlet />
+        <Outlet context={{ searchTerm }} />
       </div>
     </div>
   );

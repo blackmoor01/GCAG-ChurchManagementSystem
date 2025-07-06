@@ -10,6 +10,8 @@ import {
   LogOut,
   CreditCard,
 } from "lucide-react";
+// Import your AG crest
+import aglogo from "../../assets/images/agLogo.png";
 
 type SidebarProps = {
   collapsed: boolean;
@@ -35,8 +37,22 @@ export default function Sidebar({ collapsed }: SidebarProps) {
         ${collapsed ? "w-20" : "w-64"}`}
     >
       <div>
-        {/* Header */}
-        <div className="py-6 text-center">
+        {/* Header with AG crest + title */}
+        <div
+          className={`py-6 flex items-center justify-center ${
+            collapsed ? "flex-col" : "flex-row"
+          }`}
+        >
+          {/* Always show AG crest */}
+          <img
+            src={aglogo}
+            alt="AG Ghana Crest"
+            className={`h-8 w-8 transition-all duration-300 ${
+              collapsed ? "" : "mr-2"
+            }`}
+          />
+
+          {/* Text only when expanded */}
           {!collapsed && (
             <h2 className="text-lg font-bold tracking-wide">
               GLORY CITY CHAPEL
@@ -45,7 +61,7 @@ export default function Sidebar({ collapsed }: SidebarProps) {
         </div>
 
         {/* Menu */}
-        <nav className="flex-1">
+        <nav className="flex-1 overflow-y-auto">
           <ul className="space-y-2">
             {menuItems.map((item) => {
               const isActive = location.pathname === item.to;
@@ -61,10 +77,7 @@ export default function Sidebar({ collapsed }: SidebarProps) {
                         : "justify-start px-4 py-3",
                     ].join(" ")}
                   >
-                    {/* Icon */}
                     <span className="flex-shrink-0 text-xl">{item.icon}</span>
-
-                    {/* Label */}
                     {!collapsed && (
                       <span className="ml-3 text-sm font-medium">
                         {item.label}
