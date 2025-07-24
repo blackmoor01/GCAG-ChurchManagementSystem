@@ -1,12 +1,11 @@
-// src/App.tsx
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 
 // Wrap protected routes in Layout:
-import Layout from "./components/layout/layout"; // ← Import Layout
-import DashboardPage from "./pages/Dasboard"; // ← Fix spelling & path
+import Layout from "./components/layout/layout";
+import DashboardPage from "./pages/Dasboard";
 
 // Members sub‑pages
 import MembersPage from "./pages/members/MembersPage";
@@ -38,7 +37,7 @@ function App() {
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Route>
 
-      {/* Catch‑all: redirect to login */}
+      {/*  redirect to login */}
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );

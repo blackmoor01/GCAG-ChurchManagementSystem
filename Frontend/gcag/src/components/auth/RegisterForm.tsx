@@ -1,5 +1,3 @@
-// src/components/auth/RegisterForm.tsx
-
 import { useState } from "react";
 import RoleSelector from "./RoleSelector";
 
