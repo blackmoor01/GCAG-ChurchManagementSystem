@@ -100,6 +100,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
+    address = models.CharField(max_length=255, blank=True, null=True)
     
     # Phone number with standardized regex
     phone_regex = RegexValidator(

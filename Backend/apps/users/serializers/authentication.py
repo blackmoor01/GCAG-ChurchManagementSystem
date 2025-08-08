@@ -10,25 +10,25 @@ from apps.users.utils.ip_utils import get_client_ip
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
-    password2 = serializers.CharField(write_only=True, required=True)
+    confirm_password = serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'password', 'password2', 
-                  'phone_number', 'date_of_birth', 'gender', 'address', 'baptized', 'role', 'ministry')
+        fields = ('first_name', 'last_name', 'email', 'password', 'confirm_password', 
+                  'phone_number', 'date_of_birth', 'gender', 'address', 'baptized', 'role', 'primary_ministry')
         extra_kwargs = {
             'first_name': {'required': True},
             'last_name': {'required': True},
         }
 
     def validate(self, attrs):
-        if attrs['password'] != attrs['password2']:
+        if attrs['password'] != attrs['confirm_password']:
             raise serializers.ValidationError({"password": "Password fields didn't match."})
         return attrs
 
     def create(self, validated_data):
         request = self.context.get('request')
-        validated_data.pop('password2')
+        validated_data.pop('confirm_password')
         
         user = User.objects.create_user(
             email=validated_data['email'],
